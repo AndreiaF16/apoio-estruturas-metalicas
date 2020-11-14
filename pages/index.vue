@@ -1,26 +1,19 @@
 <template>
   <div class="container">
     <div>
-      <Logo />
       <h1 class="title">
-        apoio-estruturas-metalicas
+       Bem Vindo à plataforma de apoio de estruturas metálicas
       </h1>
       <div class="links">
         <a
-          href="https://nuxtjs.org/"
+          href="/projects"
           target="_blank"
           rel="noopener noreferrer"
           class="button--green"
         >
-          Documentation
+         Projects
         </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
+               <nuxt-link to="/projects" class="btn btn-link">Projects</nuxt-link>
         </a>
       </div>
     </div>
