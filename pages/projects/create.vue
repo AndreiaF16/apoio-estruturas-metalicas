@@ -25,6 +25,7 @@
     export default {
         data() {
             return {
+                name: 0,
                 nomeProjeto: null,
                 clienteId: null,
                 clients: [],
@@ -32,11 +33,12 @@
             }
         },
         created() {
-            this.$axios.$get('http://localhost:8080/plataformaEstruturasMetalicas/api/clients/').then(clients => { this.clients = clients
+            this.$axios.$get('http://localhost:8080/projetoEstruturas/api/clients/').then(clients => { this.clients = clients
             })
         },
         computed: {
             isNomeProjetoValid () {
+                return true;
                 if (!this.nomeProjeto) {
                     return null
                 }
@@ -66,7 +68,7 @@
                 this.errorMsg = false
             },
             create() {
-                this.$axios.$post('http://localhost:8080/plataformaEstruturasMetalicas/api/clients', {
+                this.$axios.$post('http://localhost:8080/projetoEstruturas/api/clients', {
                     nomeProjeto: this.nomeProjeto,
                     clienteId: this.clienteId,
                 })

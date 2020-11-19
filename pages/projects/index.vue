@@ -23,7 +23,7 @@
             }
         },
         created () {
-            this.$axios.$get("http://localhost:8080/plataformaEstruturasMetalicas/api/projects/")
+            this.$axios.$get("http://localhost:8080/projetoEstruturas/api/projects/")
            // this.$axios.$get("/api/projects")
                 .then(projects => {
                     this.projects = projects
@@ -31,8 +31,8 @@
         },
         methods: {
             destroy(id) {
-                this.$axios.$delete(`http://localhost:8080/plataformaEstruturasMetalicas/api/projects/${id}`).then(response => {
-                    this.$axios.$get("http://localhost:8080/plataformaEstruturasMetalicas/api/projects")
+                this.$axios.$delete(`http://localhost:8080/projetoEstruturas/api/projects/${id}`).then(response => {
+                    this.$axios.$get("http://localhost:8080/projetoEstruturas/api/projects")
                         .then(projects => this.projects = projects);
                 });
             },

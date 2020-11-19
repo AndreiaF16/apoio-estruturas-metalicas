@@ -36,9 +36,22 @@ export default {
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
+  axios: {
+    proxy: true,
+    credentials: true,
+  },
+  proxy: {
+    '/api/': {
+    target: 'http://localhost:8080/academics/api/',
+    pathRewrite: {
+    '^/api/': ''
+    }
+    }
+    },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+    extend (config, ctx) {
+    }
   }
 }

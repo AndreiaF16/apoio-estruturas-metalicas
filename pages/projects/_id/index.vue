@@ -33,7 +33,7 @@
             }
         },
         created() {
-            this.$axios.$get(`http://localhost:8080/plataformaEstruturasMetalicas/api/projects/${this.id}`)
+            this.$axios.$get(`http://localhost:8080/projetoEstruturas/api/projects/${this.id}`)
                 .then(project => this.project = project || {})
         },
     }
