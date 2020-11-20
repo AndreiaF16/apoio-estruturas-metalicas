@@ -25,7 +25,7 @@
     export default {
         data() {
             return {
-                name: 0,
+              //  name: 0,
                 nomeProjeto: null,
                 clienteId: null,
                 clients: [],
@@ -38,11 +38,11 @@
         },
         computed: {
             isNomeProjetoValid () {
-                return true;
+               // return true;
                 if (!this.nomeProjeto) {
                     return null
                 }
-                let nameLen = this.name.length;
+                let nameLen = this.nomeProjeto.length;
                 if (nameLen < 3 || nameLen > 25) {
                     return false
                 }return true
@@ -68,7 +68,7 @@
                 this.errorMsg = false
             },
             create() {
-                this.$axios.$post('http://localhost:8080/projetoEstruturas/api/clients', {
+                this.$axios.$post('http://localhost:8080/projetoEstruturas/api/projects', {
                     nomeProjeto: this.nomeProjeto,
                     clienteId: this.clienteId,
                 })
