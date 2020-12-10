@@ -5,16 +5,14 @@
        Bem Vindo à plataforma de apoio de estruturas metálicas
       </h1>
       <div class="links">
-        <a
+      <!--  <a
           href="/projects"
           target="_blank"
           rel="noopener noreferrer"
           class="button--green"
-        >
+        >-->
          Projects
-        </a>
-               <nuxt-link to="/projects" class="btn btn-link">Projects</nuxt-link>
-        </a>
+        <nuxt-link to="/projects" class="btn btn-link">Projects</nuxt-link>
       </div>
     </div>
   </div>

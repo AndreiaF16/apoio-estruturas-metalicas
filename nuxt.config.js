@@ -33,6 +33,9 @@ export default {
     'bootstrap-vue/nuxt',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    'bootstrap-vue/nuxt',
+    '@nuxtjs/toast',
+    '@nuxtjs/auth'
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
@@ -42,7 +45,7 @@ export default {
   },
   proxy: {
     '/api/': {
-    target: 'http://localhost:8080/academics/api/',
+    target: 'http://localhost:8080/projetoEstruturas/api/',
     pathRewrite: {
     '^/api/': ''
     }
