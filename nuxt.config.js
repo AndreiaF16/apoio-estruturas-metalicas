@@ -52,6 +52,39 @@ export default {
   }
   },
 
+  auth: {
+    redirect: {
+    login: '/auth/login',
+    logout: '/',
+    home: '/'
+    },
+    watchLoggedIn: true,
+    strategies: {
+    local: {
+      endpoints: {
+        login: {
+        url: '/api/login/token',
+        method: 'post',
+        propertyName: 'token'
+        },
+        logout: false,
+        user: {
+        url: '/api/login/claims',
+        method: 'get',
+        propertyName: ''
+        }
+        },
+        // tokenRequired: true, -> default
+        // tokenType: 'bearer' -> default
+        }
+        }
+        },
+        router: {
+        middleware: [
+        'auth'
+        ]
+        },
+
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     extend (config, ctx) {

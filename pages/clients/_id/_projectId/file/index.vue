@@ -1,23 +1,19 @@
 <template>
-  <b-container>
+  <div class="container-fluid">
     <h4>Detalhes do Projeto:</h4>
     <p>Nome: {{ project.nomeProjeto}}</p>
-    <p>Course: {{ project.clientId }}</p>
-    <h4>Estruturas Associadas:</h4>
-    <b-table v-if="structures.length" striped over :items="structures" :fields="structureFields" />
-    <p v-else>Sem estruturas associadas</p>
     <h4>Ficheiros Associados:</h4>
     <b-table v-if="files.length" striped over :items="files" :fields="fileFields" />
     <p v-else>Sem ficheiros associados</p>
-    <nuxt-link to="/providers">Voltar</nuxt-link>
-  </b-container>
+    <nuxt-link :to="`/clients/${id}`">Voltar</nuxt-link>
+    <nuxt-link :to="`/clients/${id}/${projectId}/file/upload`">Upload</nuxt-link>
+  </div>
 </template>
 <script>
     export default {
         data() {
             return {
                 project: {},
-                structureFields: ['id'],
                 fileFields: ['id','filename']
             }
         },
@@ -25,15 +21,15 @@
             id() {
                 return this.$route.params.id
             },
-            structures() {
-                return this.project.structures || []
+            projectId() {
+                return this.$route.params.projectId
             },
             files() {
-                return this.project.files || []
+                return this.project.ficheiros || []
             }
         },
         created() {
-            this.$axios.$get(`http://localhost:8080/projetoEstruturas/api/projects/${this.id}`)
+            this.$axios.$get(`http://localhost:8080/projetoEstruturas/api/projects/${this.projectId}`)
                 .then(project => this.project = project || {})
         },
     }

@@ -44,7 +44,7 @@
                 if (!this.project.nomeProjeto) {
                     return null
                 }
-                let nameLen = this.name.length;
+                let nameLen = this.project.nomeProjeto.length;
                 if (nameLen < 3 || nameLen > 25) {
                     return false
                 }return true
@@ -53,7 +53,7 @@
                 if (!this.project.clienteId) {
                     return null
                 }
-                return this.clients.some(cliente => this.clienteId === cliente.id)
+                return this.clients.some(cliente => this.project.clienteId === cliente.id)
             },
             isFormValid () {
                 if (! this.isNomeProjetoValid) {
@@ -70,7 +70,7 @@
                 this.errorMsg = false
             },
             update() {
-                 this.$axios.$put(`http://localhost:8080/projetoEstruturas/api/clients/${this.id}`, {
+                 this.$axios.$put(`http://localhost:8080/projetoEstruturas/api/projects/${this.id}`, {
                     nomeProjeto: this.project.nomeProjeto,
                     clienteId: this.project.clienteId,
                 })

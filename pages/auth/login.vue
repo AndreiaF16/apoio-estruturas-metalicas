@@ -2,20 +2,20 @@
   <b-container>
     <h3>Login no Apoio de Estruturas Metálicas</h3>
     <b-form @submit.prevent="onSubmit" @reset="onReset">
-      <b-form-group label="Username" description="Enter your username">
-        <b-input name="username" placeholder="Your username" v-model.trim="username" required />
+      <b-form-group label="Username" description="Preencha o seu username">
+        <b-input name="username" placeholder="Seu username" v-model.trim="username" required />
       </b-form-group>
-      <b-form-group label="Password" description="Enter your password">
+      <b-form-group label="Password" description="Preencha a sua password">
         <b-input
           name="password"
           type="password"
-          placeholder="Your password"
+          placeholder="A sua password"
           v-model="password"
           required
         />
       </b-form-group>
-      <b-button type="reset" class="btn-warning">Reset</b-button>
-      <b-button type="Submit" class="btn-success">Submit</b-button>
+      <b-button type="reset" class="btn-warning">Limpar</b-button>
+      <b-button type="Submit" class="btn-success">Entrar</b-button>
     </b-form>
   </b-container>
 </template>
@@ -37,18 +37,24 @@
                     }
                 });
                 promise.then(() => {
-                    this.$toast.success("You are logged in!");
-                    if (this.$auth.user.groups.includes('UserTipo1')) {
-                        this.$router.push('/coaches/'+this.username)
-                    } else if (this.$auth.user.groups.includes('USerTIpo2')) {
-                        this.$router.push('/athletes/' + this.username)
-                    }else if (this.$auth.user.groups.includes('USerTipo3')) {
-                        this.$router.push('/partners/' + this.username)
-                    }
+
+                    this.$axios.$get(`http://localhost:8080/projetoEstruturas/api/users/${this.username}`)
+                    .then(user => {
+                        this.$toast.success("Login efetuado com sucesso!");
+
+                        if (this.$auth.user.groups.includes('Cliente')) {
+                            this.$router.push('/clients/'+ user.id)
+                        } else if (this.$auth.user.groups.includes('Projetista')) {
+                            this.$router.push('/projects/' + user.id)
+                        }else if (this.$auth.user.groups.includes('Fabricante')) {
+                            this.$router.push('/projects/' + user.id)
+                        }
+                    })
+                    
                 });
                 promise.catch(() => {
                     this.$toast.error(
-                        "Sorry, you cant login. Ensure your credentials are correct"
+                        "Desculpe, não é possível efetuar o login. Verifique as suas credenciais"
                     );
                 });
             },
