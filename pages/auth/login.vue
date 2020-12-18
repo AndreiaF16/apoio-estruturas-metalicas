@@ -45,7 +45,7 @@
                         if (this.$auth.user.groups.includes('Cliente')) {
                             this.$router.push('/clients/'+ user.id)
                         } else if (this.$auth.user.groups.includes('Projetista')) {
-                            this.$router.push('/projects/' + user.id)
+                            this.$router.push('/projectists/' + user.id)
                         }else if (this.$auth.user.groups.includes('Fabricante')) {
                             this.$router.push('/projects/' + user.id)
                         }
