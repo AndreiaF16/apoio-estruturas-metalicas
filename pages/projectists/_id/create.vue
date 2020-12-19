@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <h1>Criar um novo projeto</h1>
     <form @submit.prevent="create" :disabled="!isFormValid">
 
@@ -12,6 +12,20 @@
         </template>
       </b-select>
       
+      
+      <b-table striped over :items="projetistas" :fields="fields">
+        <template v-slot:cell(actions)="row">
+          <button class="btn btn-link" v-on:click.prevent="addProjetistas(row.item)" >Add</button>
+        </template>
+      </b-table>
+
+
+      <b-table striped over :items="addedProjetistas" :fields="fields">
+        <template v-slot:cell(actions)="row">
+          <button class="btn btn-link" v-on:click.prevent="removeProjetistas(row.item)" >Remove</button>
+        </template>
+      </b-table>
+
       <p class="text-danger" v-show="errorMsg">{{ errorMsg }}</p>
       <nuxt-link :to="`/projectists/${id}`">Voltar</nuxt-link>
 
@@ -26,15 +40,21 @@
         data() {
             return {
               //  name: 0,
+                fields: ["id", "actions"],
                 nomeProjeto: null,
                 clienteId: null,
                 clients: [],
-                errorMsg: false
+                errorMsg: false,
+                projetistas: [],
+                addedProjetistas: []
             }
         },
         created() {
             this.$axios.$get('http://localhost:8080/projetoEstruturas/api/clients/').then(clients => { this.clients = clients
             })
+             this.$axios.$get('http://localhost:8080/projetoEstruturas/api/projectists/').then(projetistas => { this.projetistas = projetistas
+            })
+
         },
         computed: {
             id() {
@@ -74,7 +94,7 @@
                 this.$axios.$post('http://localhost:8080/projetoEstruturas/api/projects', {
                     nomeProjeto: this.nomeProjeto,
                     clienteId: this.clienteId,
-                    projetistas: [{id: this.id}]
+                    projetistas: this.addedProjetistas
                 })
                     .then(() => {
                         this.$router.push("/projectists/"+this.id)
@@ -82,7 +102,17 @@
                     .catch(error => {
                         this.errorMsg = error.response.data
                     })
+            }, 
+            addProjetistas(projetista){
+                this.addedProjetistas.push(projetista);
+                this.projetistas = this.projetistas.filter(item => item.id !== projetista.id)
+
+            },
+            removeProjetistas(projetista){
+                this.addedProjetistas = this.addedProjetistas.filter(item => item.id !== projetista.id)
+                this.projetistas.push(projetista);
             }
+
         }
     }
 </script>

@@ -8,6 +8,18 @@
     </div>
     <div>
         <h4>Projetos Associados:</h4>
+
+        <b-input v-model.trim="nomeProjeto" placeholder="Escreva o nome do projeto" />
+
+      <b-select v-model="clienteId" :options="clients" value-field="id" text-field="nome">
+        <template v-slot:first>
+          <option :value="0">-- Selecione o cliente do projeto --</option>
+        </template>
+      </b-select>
+
+        <button @click.prevent="filter">Filtrar</button>
+        <button @click.prevent="reset">Reset</button>
+
         <b-table v-if="projects.length" striped over :items="projects" :fields="projectsFields">
             <template v-slot:cell(actions)="row">
                 <nuxt-link class="btn btn-link" :to="`/projectists/${id}/${row.item.id}/structures`">Estruturas</nuxt-link>
@@ -31,7 +43,10 @@
             return {
                 projectist: {},
                 projects: [],
-                projectsFields: ['id',"nomeProjeto","actions"]
+                projectsFields: ['id',"nomeProjeto","actions"],
+                clients:[],
+                nomeProjeto:"",
+                clienteId: 0
             }
         },
         computed: {
@@ -59,7 +74,20 @@
                         this.$axios.$get(`http://localhost:8080/projetoEstruturas/api/projectists/${this.id}/projects`)
                         .then(projects => this.projects = projects || {})
                     })
+            },
+            filter(){
+                this.$axios.$post('http://localhost:8080/projetoEstruturas/api/projects/filter',{
+                    nome: this.nomeProjeto, 
+                    idCliente: this.clienteId})
+                .then(projects => { this.projects = projects})
+            },
+            reset(){
+                this.$axios.$get(`http://localhost:8080/projetoEstruturas/api/projectists/${this.id}/projects`)
+                .then(projects => this.projects = projects || {})
+                this.nomeProjeto=""
+                this.clienteId=0
             }
+
         },
         created() {
             this.$axios.$get(`http://localhost:8080/projetoEstruturas/api/projectists/${this.id}`)
@@ -67,6 +95,8 @@
 
             this.$axios.$get(`http://localhost:8080/projetoEstruturas/api/projectists/${this.id}/projects`)
                 .then(projects => this.projects = projects || {})
+            this.$axios.$get('http://localhost:8080/projetoEstruturas/api/clients/').then(clients => { this.clients = clients
+            })
         },
     }
 </script>

@@ -1,16 +1,16 @@
-<template>
+<!--<template>
   <div class="container">
     <div>
       <h1 class="title">
        Bem Vindo à plataforma de apoio de estruturas metálicas
       </h1>
       <div class="links">
-      <!--  <a
+        <a
           href="/projects"
           target="_blank"
           rel="noopener noreferrer"
           class="button--green"
-        >-->
+        >
          Projects
         <nuxt-link to="/projects" class="btn btn-link">Projects</nuxt-link>
       </div>
@@ -62,3 +62,4 @@ export default {}
   padding-top: 15px;
 }
 </style>
+-->
