@@ -33,6 +33,10 @@
     </div>
     <div>
         <nuxt-link class="btn btn-link" :to="`/projectists/${id}/create`">Criar projeto</nuxt-link>
+        
+        <nuxt-link :to="`/projectists/${this.id}/structures`">Gerir Estruturas</nuxt-link>
+
+         <nuxt-link :to="`/projectists/${this.id}/simulation`">Simulação</nuxt-link>
     </div>
 </div>
   
@@ -66,7 +70,7 @@
                     })
             },
             apagar(idProjeto){
-                this.$axios.delete(`http://localhost:8080/projetoEstruturas/api/projects/${idProjeto}`)
+                this.$axios.$delete(`http://localhost:8080/projetoEstruturas/api/projects/${idProjeto}`)
                     .then(item => {
                         this.$axios.$get(`http://localhost:8080/projetoEstruturas/api/projectists/${this.id}`)
                         .then(projectist => this.projectist = projectist || {})

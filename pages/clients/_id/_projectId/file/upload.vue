@@ -63,6 +63,7 @@ export default {
       })
 
       promisse.then(() => {
+        this.$router.push("/clients/"+this.id+"/"+this.projectId+"/file");
         this.$toast.success('File uploaded!').goAway(3000)
       })
     }
