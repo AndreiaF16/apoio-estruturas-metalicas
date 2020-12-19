@@ -27,7 +27,10 @@ export default {
     // https://go.nuxtjs.dev/bootstrap
     "bootstrap-vue/nuxt",
     // https://go.nuxtjs.dev/axios
-    "@nuxtjs/axios"
+    '@nuxtjs/axios',
+    'bootstrap-vue/nuxt',
+    '@nuxtjs/toast',
+    '@nuxtjs/auth'
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
@@ -36,13 +39,46 @@ export default {
     credentials: true // CORS
   },
   proxy: {
-    "/api/": {
-      target: "http://localhost:8080/academics/api/",
-      pathRewrite: {
-        "^/api/": ""
-      }
+    '/api/': {
+    target: 'http://localhost:8080/projetoEstruturas/api/',
+    pathRewrite: {
+    '^/api/': ''
     }
   },
+
+  auth: {
+    redirect: {
+    login: '/auth/login',
+    logout: '/',
+    home: '/'
+    },
+    watchLoggedIn: true,
+    strategies: {
+    local: {
+      endpoints: {
+        login: {
+        url: '/api/login/token',
+        method: 'post',
+        propertyName: 'token'
+        },
+        logout: false,  
+        user: {
+        url: '/api/login/claims',
+        method: 'get',
+        propertyName: ''
+        }
+        },
+        // tokenRequired: true, -> default
+        // tokenType: 'bearer' -> default
+        }
+        }
+        },
+        router: {
+        middleware: [
+        'auth'
+        ]
+        },
+
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     extend(config, ctx) {}

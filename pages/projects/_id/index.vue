@@ -30,7 +30,7 @@
             return {
                 project: {},
                 structureFields: ['id'],
-                fileFields: ['id']
+                fileFields: ['id','filename']
             }
         },
         computed: {

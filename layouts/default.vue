@@ -1,10 +1,23 @@
 <template>
   <div>
+    <b-form @click.prevent="logout">
+      <b-button type="submit">Logout</b-button>
+    </b-form>
     <Nuxt />
   </div>
 </template>
 
-<style>
+<script>
+export default {
+  methods:{
+    logout(){
+      this.$auth.logout("local");
+      this.$router.push("auth/login");
+    }
+  }
+}
+</script>
+<!--<style>
 html {
   font-family:
     'Source Sans Pro',
@@ -60,3 +73,4 @@ html {
   background-color: #35495e;
 }
 </style>
+-->
