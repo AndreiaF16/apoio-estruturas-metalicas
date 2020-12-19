@@ -35,74 +35,65 @@
   </div>
 </template>
 <script>
-export default {
-  data() {
-    return {
-      clients: [],
-      project: {},
-      errorMsg: false,
-    };
-  },
-  created() {
-    this.$axios
-      .$get("http://localhost:8080/projetoEstruturas/api/clients/")
-      .then((clients) => {
-        this.clients = clients;
-      });
-    this.$axios
-      .$get(`http://localhost:8080/projetoEstruturas/api/projects/${this.id}`)
-      .then((project) => (this.project = project || {}));
-  },
-  computed: {
-    id() {
-      return this.$route.params.id;
-    },
-    isNomeProjetoValid() {
-      if (!this.project.nomeProjeto) {
-        return null;
-      }
-      let nameLen = this.name.length;
-      if (nameLen < 3 || nameLen > 25) {
-        return false;
-      }
-      return true;
-    },
-    isClienteValid() {
-      if (!this.project.clienteId) {
-        return null;
-      }
-      return this.clients.some((cliente) => this.clienteId === cliente.id);
-    },
-    isFormValid() {
-      if (!this.isNomeProjetoValid) {
-        return false;
-      }
-      if (!this.isClienteValid) {
-        return false;
-      }
-      return true;
-    },
-  },
-  methods: {
-    reset() {
-      this.errorMsg = false;
-    },
-    update() {
-      this.$axios
-        .$put(
-          `http://localhost:8080/projetoEstruturas/api/clients/${this.id}`,
-          {
-            nomeProjeto: this.project.nomeProjeto,
-            clienteId: this.project.clienteId,
-          }
-        )
-        .then(() => {
-          this.$router.push("/projects");
-        })
-        .catch((error) => {
-          this.errorMsg = error.response.data;
-        });
-    },
-  },
-};
+    export default {
+        data() {
+            return {
+                clients: [],
+                project: {},
+                errorMsg: false
+            }
+        },
+        created() {
+            this.$axios.$get('http://localhost:8080/projetoEstruturas/api/clients/').then(clients => { this.clients = clients
+            });
+             this.$axios.$get(`http://localhost:8080/projetoEstruturas/api/projects/${this.id}`)
+                .then(project => this.project = project || {})
+        },
+        computed: {
+            id() {
+                return this.$route.params.id
+            },
+            isNomeProjetoValid () {
+                if (!this.project.nomeProjeto) {
+                    return null
+                }
+                let nameLen = this.name.length;
+                if (nameLen < 3 || nameLen > 25) {
+                    return false
+                }return true
+            },
+            isClienteValid () {
+                if (!this.project.clienteId) {
+                    return null
+                }
+                return this.clients.some(cliente => this.clienteId === cliente.id)
+            },
+            isFormValid () {
+                if (! this.isNomeProjetoValid) {
+                    return false
+                }
+                if (! this.isClienteValid) {
+                    return false
+                }
+                return true
+            }
+        },
+        methods: {
+            reset () {
+                this.errorMsg = false
+            },
+            update() {
+                 this.$axios.$put(`http://localhost:8080/projetoEstruturas/api/clients/${this.id}`, {
+                    nomeProjeto: this.project.nomeProjeto,
+                    clienteId: this.project.clienteId,
+                })
+                    .then(() => {
+                        this.$router.push('/projects')
+                    })
+                    .catch(error => {
+                        this.errorMsg = error.response.data
+                    })
+            }
+        }
+    }
 </script>

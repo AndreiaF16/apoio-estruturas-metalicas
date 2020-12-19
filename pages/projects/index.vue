@@ -24,33 +24,29 @@
   </div>
 </template>
 <script>
-export default {
-  data() {
-    return {
-      fields: ["id", "nomeProjeto", "clienteId"],
-      projects: [],
-    };
-  },
-  created() {
-    this.$axios
-      .$get("http://localhost:8080/projetoEstruturas/api/projects/")
-      // this.$axios.$get("/api/projects")
-      .then((projects) => {
-        this.projects = projects;
-      });
-  },
-  methods: {
-    destroy(id) {
-      this.$axios
-        .$delete(`http://localhost:8080/projetoEstruturas/api/projects/${id}`)
-        .then((response) => {
-          this.$axios
-            .$get("http://localhost:8080/projetoEstruturas/api/projects")
-            .then((projects) => (this.projects = projects));
-        });
-    },
-  },
-};
+    export default {
+        data () {
+            return {
+                fields: ['id', 'nomeProjeto', 'clienteId'],
+                projects: []
+            }
+        },
+        created () {
+            this.$axios.$get("http://localhost:8080/projetoEstruturas/api/projects/")
+           // this.$axios.$get("/api/projects")
+                .then(projects => {
+                    this.projects = projects
+                })
+        },
+        methods: {
+            destroy(id) {
+                this.$axios.$delete(`http://localhost:8080/projetoEstruturas/api/projects/${id}`).then(response => {
+                    this.$axios.$get("http://localhost:8080/projetoEstruturas/api/projects")
+                        .then(projects => this.projects = projects);
+                });
+            },
+        }
+    }
 </script>
 <style>
 </style>

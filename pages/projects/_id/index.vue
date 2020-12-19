@@ -25,29 +25,28 @@
   </b-container>
 </template>
 <script>
-export default {
-  data() {
-    return {
-      project: {},
-      structureFields: ["id"],
-      fileFields: ["id"],
-    };
-  },
-  computed: {
-    id() {
-      return this.$route.params.id;
-    },
-    structures() {
-      return this.project.structures || [];
-    },
-    files() {
-      return this.project.files || [];
-    },
-  },
-  created() {
-    this.$axios
-      .$get(`http://localhost:8080/projetoEstruturas/api/projects/${this.id}`)
-      .then((project) => (this.project = project || {}));
-  },
-};
+    export default {
+        data() {
+            return {
+                project: {},
+                structureFields: ['id'],
+                fileFields: ['id']
+            }
+        },
+        computed: {
+            id() {
+                return this.$route.params.id
+            },
+            structures() {
+                return this.project.structures || []
+            },
+            files() {
+                return this.project.files || []
+            }
+        },
+        created() {
+            this.$axios.$get(`http://localhost:8080/projetoEstruturas/api/projects/${this.id}`)
+                .then(project => this.project = project || {})
+        },
+    }
 </script>

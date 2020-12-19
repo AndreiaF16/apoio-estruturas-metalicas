@@ -35,7 +35,16 @@ export default {
     proxy: true, // tells axios to use a proxy//
     credentials: true // CORS
   },
-
+  proxy: {
+    "/api/": {
+      target: "http://localhost:8080/academics/api/",
+      pathRewrite: {
+        "^/api/": ""
+      }
+    }
+  },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {}
+  build: {
+    extend(config, ctx) {}
+  }
 };
